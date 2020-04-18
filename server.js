@@ -506,4 +506,6 @@ app.all('/*', (req, res, next) => { // needed for react router
 
 
 const { PORT = 4000, LOCAL_ADDRESS = '0.0.0.0' } = process.env; // for hiroku
-app.listen(PORT, '0.0.0.0', () => { console.log("Server running on port 4000") })
+app.listen(PORT, LOCAL_ADDRESS, () => {
+   console.log("Server running on port " + PORT) 
+  })
