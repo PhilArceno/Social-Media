@@ -1,5 +1,9 @@
-To start the server, run `nodemon server.js`
+!!PROJECT DEMO!!
+https://www.youtube.com/watch?v=rGJMGWSOWCc
+(minor adjustments were made prior to this video, such as a search bar in the explore page)
 
-Modify the `server.js` file to add endpoints
+"start" in the package.json file was changed to nodemon for heroku.
+To start the server, run `node server.js`
 
-The frontend code goes in the `/src` directory
+Or change to nodemon under "start" in package.json
+and run `nodemon server.js`
