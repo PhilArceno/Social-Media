@@ -1,7 +1,12 @@
-!!PROJECT DEMO!!
+## Live Demo
 https://www.youtube.com/watch?v=rGJMGWSOWCc
 
-(minor adjustments were made prior to this video, such as a search bar in the explore page)
+## Website
+https://radiant-gorge-99253.herokuapp.com/
+
+## Run Project
+
+run `npm install`
 
 "start" in the package.json file was changed to nodemon for heroku.
 To start the server, run `node server.js`
