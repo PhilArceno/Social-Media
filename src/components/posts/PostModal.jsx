@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import OnePost from './OnePost.jsx'
 

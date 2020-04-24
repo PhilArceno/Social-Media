@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import { Route, BrowserRouter, Link, Switch, withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import Register from './Register.jsx'
-import Login from './Login.jsx'
+import Register from '../pages/register/Register.jsx'
+import { Login } from '../pages/login'
 import MainPage from './MainPage.jsx'
-import ProfilePage from './ProfilePage.jsx'
-import PostModal from './PostModal.jsx'
-import Explore from './Explore.jsx'
-import CreatePost from './CreatePost.jsx'
-import CommentsPage from './components/CommentsPage.jsx'
+import ProfilePage from '../pages/user-profile/ProfilePage.jsx'
+import PostModal from './posts/PostModal.jsx'
+import Explore from '../pages/explore/Explore.jsx'
+import CreatePost from '../pages/create-post/CreatePost.jsx'
+import CommentsPage from './posts/CommentsPage.jsx'
 
 function App(props) {
     const user = useSelector(state => state.user)

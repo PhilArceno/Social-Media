@@ -39,6 +39,8 @@ function Login(props) {
                 <input className="CTA" type="submit"></input>
             </form>
 
+            <div style={{marginTop: "1em"}}><Link to="/explore">Go Explore</Link></div>
+
             <div style={{marginTop: "1em"}}>Sign up now! <Link to="/signup">Register</Link></div>
             </div>
         </div>
@@ -46,4 +48,4 @@ function Login(props) {
     )
 }
 
-export default Login
+export { Login }

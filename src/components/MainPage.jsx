@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Link } from 'react-router-dom'
 import Navigation from './Navigation.jsx'
-import ProfilePage from './ProfilePage.jsx'
-import Feed from './Feed.jsx'
-import EditProfile from './components/EditProfile.jsx'
-import ChangePassword from './components/ChangePassword.jsx'
-import ChatHistory from './ChatHistory.jsx'
-import EditPost from './components/EditPost.jsx'
+import Feed from '../pages/feed/Feed.jsx'
+import EditProfile from '../pages/user-profile/edit/EditProfile.jsx'
+import ChangePassword from '../pages/user-profile/edit/ChangePassword.jsx'
+import { ChatHistory } from '../pages/chat'
+import EditPost from '../pages/user-profile/edit/EditPost.jsx'
 
 
 

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
-import ChatApp from './components/ChatApp.jsx'
+import ChatApp from './ChatApp.jsx'
 
 const Search = styled.input`
 width:95%;
@@ -169,4 +167,4 @@ function ChatHistory(props) {
     )
 }
 
-export default ChatHistory
+export { ChatHistory }

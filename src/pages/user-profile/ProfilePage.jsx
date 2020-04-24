@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ProfileFeed from './ProfileFeed.jsx'
