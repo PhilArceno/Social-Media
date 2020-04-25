@@ -1,12 +1,9 @@
-import { createStore } from 'redux';
-
 const initialState = {
-    user: undefined,
-    feed: [],
-    chatLog: [],
-    allUsers: []
+  user: undefined,
+  feed: [],
+  chatLog: [],
+  allUsers: []
 }
-  
 
 function reducer(state = initialState, action) {
     switch (action.type) {
@@ -42,10 +39,4 @@ function reducer(state = initialState, action) {
         return state;
     }
   }
-
-const store = createStore(
-    reducer, 
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
-export default store;
+export { reducer }

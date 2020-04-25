@@ -25,14 +25,14 @@ Sign up or use the guest account (password: guest)
     *   Live search within the inbox to search through all users.
 
 ### Language/libraries used
-Javascript
-React
-React-Redux
-React-Router
-Express
-Styled Components
-Multer
-Hooks
+* Javascript
+* React
+* React-Redux
+* React-Router
+* Express
+* Styled Components
+* Multer
+* Hooks
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/54872569/80265465-a964dd00-8665-11ea-83ca-9d5b6a63d23d.png)
