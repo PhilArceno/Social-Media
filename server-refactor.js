@@ -1,25 +1,25 @@
 // TEMPORARY FILE WHILE WE MIGRATE
 let express = require("express");
 let app = express();
-let reloadMagic = require("../reload-magic.js");
+let reloadMagic = require("./reload-magic.js");
 
 let ObjectID = require("mongodb").ObjectID;
 let multer = require("multer");
 let sha1 = require("sha1");
-let upload = multer({ dest: __dirname + "/uploads/" });
+let upload = multer({ dest: __dirname + "./uploads/" });
 let cookieParser = require("cookie-parser");
 
-import { userController } from "./controllers";
-import { initMongo } from "./util/connection";
+import { userController } from "./server/controllers";
+import { initMongo } from "./server/util/connection";
 import path from "path";
 
 app.use(cookieParser());
 
 reloadMagic(app);
 
-app.use("/", express.static("../build")); // Needed for the HTML and JS files
-app.use("/", express.static("../public")); // Needed for local assets
-app.use("/uploads", express.static("../uploads"));
+app.use("/", express.static("./build")); // Needed for the HTML and JS files
+app.use("/", express.static("./public")); // Needed for local assets
+app.use("/uploads", express.static("./uploads"));
 
 //Database
 let dbo = null;
@@ -608,7 +608,7 @@ app.post("/logout", upload.none(), (req, res) => {
 // Your endpoints go before this line
 
 // resolve path here, as express considers `../` at runtime a directory traversal attack, and will not compile
-const template = path.resolve(__dirname + "/../build/index.html");
+const template = path.resolve(__dirname + "/build/index.html");
 app.all("/*", (req, res, next) => {
   // needed for react router
   res.sendFile(template);

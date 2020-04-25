@@ -33,7 +33,6 @@ MongoClient.connect(
 //Storage (cookies)
 let sessions = {}
 
-
 // Your endpoints go after this line
 app.get('/user', async(req, res) => {
   console.log('request to /user');
@@ -503,7 +502,6 @@ app.post('/logout', upload.none(), (req, res) => {
 app.all('/*', (req, res, next) => { // needed for react router
     res.sendFile(__dirname + '/build/index.html');
 })
-
 
 const { PORT = 4000, LOCAL_ADDRESS = '0.0.0.0' } = process.env; // for hiroku
 app.listen(PORT, LOCAL_ADDRESS, () => {
