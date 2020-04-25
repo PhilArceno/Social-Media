@@ -606,16 +606,22 @@ app.post("/logout", upload.none(), (req, res) => {
 });
 
 // Your endpoints go before this line
+
+// resolve path here, as express considers `../` at runtime a directory traversal attack, and will not compile
 const template = path.resolve(__dirname + "/../build/index.html");
 app.all("/*", (req, res, next) => {
   // needed for react router
   res.sendFile(template);
 });
 
+// Make sure the mongo instance is bound before we start the app
 initMongo(
+  // TODO: this should come from config
   "mongodb+srv://Phil:phila@cluster0-krqft.mongodb.net/test?retryWrites=true&w=majority"
-).then((response) => {
-  dbo = response;
+).then((mongo) => {
+  // assing dbo to mongo instance
+  dbo = mongo;
+
   const { PORT = 4000, LOCAL_ADDRESS = "0.0.0.0" } = process.env; // for hiroku
   app.listen(4000, LOCAL_ADDRESS, () => {
     console.log("Server running on port " + PORT);

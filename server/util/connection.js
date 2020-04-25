@@ -14,9 +14,8 @@ const initMongo = async (url) => {
       useUnifiedTopology: true,
     });
 
-    console.log("Assinging connection");
     connection = mongo.db("ProjectDB");
-    console.log("Connection Assigned!");
+    console.log("Connection to Mongo established!");
   }
 
   return;

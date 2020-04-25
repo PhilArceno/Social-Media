@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userService } from "../services";
 
+// This should be refactored, and sessions should be stored in mongo!
 const sessions = [];
 
 const getUser = async (req, res) => {
