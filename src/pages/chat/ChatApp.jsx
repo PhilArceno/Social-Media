@@ -85,6 +85,7 @@ function ChatApp(props) {
     const [message, setMessage] = useState({input: ''})
     const [thisChat, setThisChat] = useState({})
     const dispatch = useDispatch()
+    const [firstTime, setFirstTime] = useState({ check: true})
 
     useEffect(() => {
         let getChat = chatLog.filter(chat => {
@@ -92,9 +93,13 @@ function ChatApp(props) {
         })
         getChat = getChat[0]
         setThisChat(getChat)
+        if (firstTime.check) {
+        setFirstTime({check: false})
         setTimeout(()=> {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
         }, 200)
+        }
+
     }, [chatLog, props.chatId])
 
     const sendMessage = async e => {

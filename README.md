@@ -22,6 +22,7 @@ Sign up or use the guest account (password: guest)
 *   Posts are editable, and deletable.
 *   Live chat. Users may send messages in real time, inbox displays previews of user messages, and cuts message preview if too long.
     *   Live search within the inbox to search through all users.
+    *   Chat App scrolls down to most recent message, as well as when user sends a message
 
 ### Language/libraries used
 * Javascript
