@@ -1,4 +1,4 @@
-import { userDatabase, sessionsDatabase, chatDatabase } from "../databases";
+import { sessionsDatabase, chatDatabase } from "../databases";
 
 const getSession = async (cookieId) => {
   return await sessionsDatabase.getUserBySession(cookieId);

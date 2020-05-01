@@ -85,7 +85,6 @@ function ChatApp(props) {
     const [message, setMessage] = useState({input: ''})
     const [thisChat, setThisChat] = useState({})
     const dispatch = useDispatch()
-    const [firstTime, setFirstTime] = useState({ check: true})
 
     useEffect(() => {
         let getChat = chatLog.filter(chat => {

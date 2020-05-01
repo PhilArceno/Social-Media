@@ -32,16 +32,12 @@ let dbo = null;
 // Assign the user controller to a /user prefix, meaning that anything inside userController will have `/user` before it's route
 // i.e for getUser, which is `app.get('/')`, it will actually resolve at `/user`
 app.use("/user", userController);
-
 app.use("/feed", feedController);
-
 app.use("/get", getController);
-
 app.use("/post", postController);
-
 app.use("/profile", profileController);
-
 app.use("/chat", chatController)
+
 // Your endpoints go before this line
 
 // resolve path here, as express considers `../` at runtime a directory traversal attack, and will not compile
