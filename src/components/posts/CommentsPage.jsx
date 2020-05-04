@@ -26,7 +26,7 @@ function CommentsPage(props) {
         let data = new FormData()
         data.append("username", comment.username)
         data.append("comment", comment.comment)
-        data.append("post", props.postId) 
+        data.append("postId", props.postId) 
         let response = await fetch('/post/comment/delete', {method: 'POST', body: data})
         let body = await response.text()
         let parsed = JSON.parse(body)

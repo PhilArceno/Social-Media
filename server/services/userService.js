@@ -1,4 +1,4 @@
-import { userDatabase, sessionsDatabase } from "../databases";
+import { userDatabase } from "../databases";
 
 
 const getUser = async (username) => {
@@ -17,19 +17,4 @@ const setupUser = async (allUsers, username) => {
   await userDatabase.setupThisUser(allUsers, username);
 }
 
-const getSession = async (cookieId) => {
-  return await sessionsDatabase.getUserBySession(cookieId);
-};
-
-const makeSession = async (username) => {
-  return await sessionsDatabase.makeSessionForUser(username);
-};
-
-const deleteSession = async (cookieId) => {
-  return await sessionsDatabase.deleteThisSession(cookieId);
-};
-
-
-
-
-export { getUser, getSession, makeSession, deleteSession, createUser, getAllUsers, setupUser };
+export { getUser, createUser, getAllUsers, setupUser };

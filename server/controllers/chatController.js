@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { chatService } from "../services";
+import { chatService, sessionsService } from "../services";
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "../../../uploads/" });
 
@@ -14,7 +14,7 @@ const sendMessage = async (req, res) => {
            throw new TypeError('Missing params');
       }
 
-      let session = await chatService.getSession(req.cookies.sid)
+      let session = await sessionsService.getSession(req.cookies.sid)
       if (!session) {
         return res.send(JSON.stringify({ success: false }));
       }

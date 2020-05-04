@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { userService } from "../services";
+import { userService, sessionsService } from "../services";
 let sha1 = require("sha1");
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "../../../uploads/" });
@@ -8,7 +8,7 @@ let upload = multer({ dest: __dirname + "../../../uploads/" });
 const getUser = async (req, res) => {
   console.log("request to /user");
   try {
-    let user = await userService.getSession(req.cookies.sid)
+    let user = await sessionsService.getSession(req.cookies.sid)
     if (!user) {
       return res.send(JSON.stringify({ success: false }));
     }
@@ -38,7 +38,7 @@ const login = async (req, res) => {
       return res.send(JSON.stringify({ success: false }));
     }
     if (user.password === sha1(password)) {
-      let doc = await userService.makeSession(username)
+      let doc = await sessionsService.makeSession(username)
       let sessionId = doc.insertedId
       res.cookie("sid", sessionId);
       res.send(JSON.stringify({ success: true, user }));
@@ -54,7 +54,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   console.log('request to /user/logout')
   if (req.cookies.sid) {
-    await userService.deleteSession(req.cookies.sid)
+    await sessionsService.deleteSession(req.cookies.sid)
     res.send(JSON.stringify({ success: true }));
   } else {
     res.send(JSON.stringify({ success: false }));

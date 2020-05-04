@@ -1,24 +1,21 @@
 import { Router } from "express";
-import { connection } from "../util/connection";
-import { ObjectID } from "mongodb";
+import { userService, chatService, postsService, sessionsService } from '../services'
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "../../../uploads/" });
 
 const getUsersChat = async (req, res) => {
   console.log("request to /get/users");
-  let session = await connection.collection('sessions').findOne({_id: ObjectID(req.cookies.sid)})
+  try {
+  let session = await sessionsService.getSession(req.cookies.sid)
+
   if (!session) {
     return res.send(JSON.stringify({ success: false }));
   }
 
-  let username = session.username
-  try {
-    let allUsers = await connection.collection("users").find({}).toArray();
+    let username = session.username
+    let allUsers = await userService.getAllUsers()
 
-    let matchingChats = await connection
-      .collection("chat")
-      .find({ users: username })
-      .toArray();
+    let matchingChats = await chatService.getChats(username)
 
     res.send(JSON.stringify({ success: true, allUsers, matchingChats }));
     return;
@@ -30,18 +27,24 @@ const getUsersChat = async (req, res) => {
 
 const getEditPost = async (req, res) => {
   console.log("request to /get/edit-post");
-  let session = await connection.collection('sessions').findOne({_id: ObjectID(req.cookies.sid)})
-  if (!session) {
-    return res.send(JSON.stringify({ success: false }));
-  }
-  let username = session.username
-  let postId = req.body.postId;
-
   try {
-    let post = await connection.collection("posts").findOne({ _id: ObjectID(postId) });
-    if (post.uploader === username) {
-      return res.send(JSON.stringify({ success: true, post }));
-    } else res.send(JSON.stringify({ success: false }));
+    if (req.body) {
+      let postId = req.body.postId;
+      if (!postId) {
+        throw new TypeError('Missing postId!')
+      }
+       let session = await sessionsService.getSession(req.cookies.sid)
+        if (!session) {
+          return res.send(JSON.stringify({ success: false }));
+        }
+        let username = session.username
+        
+          let post = await postsService.getOnePost(postId)
+          if (post.uploader === username) {
+            return res.send(JSON.stringify({ success: true, post }));
+          } else res.send(JSON.stringify({ success: false })); 
+    }
+    throw new TypeError('Missing request body!');
   } catch (err) {
     console.log(err);
     res.send(JSON.stringify({ success: false }));
@@ -50,13 +53,17 @@ const getEditPost = async (req, res) => {
 
 const getPost = async (req, res) => {
   console.log("request to /get/post");
-  let postId = req.body.postId;
-
   try {
-    let post = await connection.collection("posts").findOne({ _id: ObjectID(postId) });
-
+    if (req.body) {
+      let postId = req.body.postId;
+      if (!postId) {
+        throw new TypeError('Missing postId!')
+      }
+    let post = await postsService.getOnePost(postId)
     return res.send(JSON.stringify({ success: true, post }));
-  } catch (err) {
+  }
+  throw new TypeError('Missing request body!')
+ } catch (err) {
     console.log(err);
     res.send(JSON.stringify({ success: false }));
   }
@@ -64,18 +71,19 @@ const getPost = async (req, res) => {
 
 const getProfile = async (req, res) => {
   console.log("request to /get/profile");
-
-  let username = req.body.user;
-
   try {
-    let user = await connection.collection("users").findOne({ username });
-    let uploadedPosts = await connection
-      .collection("posts")
-      .find({ uploader: username })
-      .toArray();
+    if (req.body) {
+      let username = req.body.user;
+      if (!username) {
+        throw new TypeError('Missing username!')
+      }
+    let user = await userService.getUser(username)
+    let uploadedPosts = await postsService.getUploadedPosts(username)
     res.send(JSON.stringify({ success: true, user, uploadedPosts }));
     return;
-  } catch (err) {
+  }
+  throw new TypeError('Missing request body!')
+} catch (err) {
     console.log(err);
     res.send(JSON.stringify({ success: false }));
   }

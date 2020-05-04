@@ -1,15 +1,20 @@
 import { Router } from "express";
-import { connection } from "../util/connection";
+import { postsService } from "../services";
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "../../../uploads/" });
 
 const getFeed = async (req, res) => {
   console.log("request to /feed");
+  try {
+    if (req.body) {
   let following = req.body.following.split(",");
   let followFeed = [];
 
-  try {
-    let feed = await connection.collection("posts").find({}).toArray();
+  if (!following) {
+    throw new TypeError('Missing params');
+  }
+
+    let feed = await postsService.getAllPosts()
     if (following) {
       for (var i = 0; i < feed.length; i++) {
         for (var x = 0; x < following.length; x++) {
@@ -22,6 +27,8 @@ const getFeed = async (req, res) => {
     followFeed.reverse();
     res.send(JSON.stringify({ success: true, feed: followFeed }));
     return;
+  }
+  throw new TypeError('Missing request body!')
   } catch (err) {
     console.log(err);
     res.send(JSON.stringify({ success: false }));
@@ -30,9 +37,8 @@ const getFeed = async (req, res) => {
 
 const getExplore = async (req, res) => {
   console.log("request to /explore");
-
   try {
-    let exploreFeed = await connection.collection("posts").find({}).toArray();
+    let exploreFeed = await postsService.getExplore()
     res.send(JSON.stringify({ success: true, exploreFeed }));
     return;
   } catch (err) {

@@ -89,7 +89,9 @@ function EditPost(props) {
                 location: parsed.post.location,
                 tags: parsed.post.tags
             })
+        return
         }
+        setPost({thisPost: false})
     }
 
     useEffect(()=> {
@@ -176,6 +178,11 @@ function EditPost(props) {
         }
     }
 
+if (!post.thisPost) {
+    return (
+        <div></div>
+    )
+}
 
     return (
         <div className="container">

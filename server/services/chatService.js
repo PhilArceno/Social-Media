@@ -1,8 +1,4 @@
-import { sessionsDatabase, chatDatabase } from "../databases";
-
-const getSession = async (cookieId) => {
-  return await sessionsDatabase.getUserBySession(cookieId);
-};
+import { chatDatabase } from "../databases";
 
 const sendMessage = async (chatId, username, message) => {
     await chatDatabase.sendMessage(chatId, username, message)
@@ -13,4 +9,4 @@ const getChats = async (username) => {
 }
 
 
-export { getSession, sendMessage, getChats };
+export { sendMessage, getChats };

@@ -336,10 +336,10 @@ app.post('/post/comment/new', upload.none(), async (req, res) => {
   let username = sessions[req.cookies.sid]
   let comment = req.body.comment
   let time = req.body.time
-  let post = req.body.post
+  let postId = req.body.postId
 
   try {
-    await dbo.collection('posts').findOneAndUpdate({ _id: ObjectID(post) }, { $push: { comments: {username, time, comment, likes: []} }});
+    await dbo.collection('posts').findOneAndUpdate({ _id: ObjectID(postId) }, { $push: { comments: {username, time, comment, likes: []} }});
     let feed = await dbo.collection("posts").find({}).toArray()
     feed.reverse()
     res.send(JSON.stringify({success:true, feed}))
@@ -352,10 +352,10 @@ app.post('/post/comment/new', upload.none(), async (req, res) => {
 app.post('/post/comment/delete', upload.none(), async (req,res) => {
   let username = req.body.username
   let comment = req.body.comment
-  let post = req.body.post
+  let postId = req.body.postId
 
   try {
-    await dbo.collection('posts').updateOne({ _id: ObjectID(post) }, { $pull: { comments: {username, comment} }});
+    await dbo.collection('posts').updateOne({ _id: ObjectID(postId) }, { $pull: { comments: {username, comment} }});
     let feed = await dbo.collection("posts").find({}).toArray()
     feed.reverse()
     res.send(JSON.stringify({success:true, feed}))
