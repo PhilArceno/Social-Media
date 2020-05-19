@@ -91,4 +91,39 @@ const removeComment = async (postId, username, comment) => {
     );
 }
 
-export { getAllPosts, getExplore, getOnePost, getUploadedPosts, createPost, editPost, removePost, removeLike, likePost, postComment, removeComment }
+const editPicture = async (username, imgPath) => {
+    await connection
+    .collection("posts")
+    .updateMany(
+      { uploader: username },
+      { $set: { profilePicture: imgPath } }
+    );
+  };
+
+const updatePostsUsername = async(username, newUsername) => {
+    await connection
+      .collection("posts")
+      .updateMany(
+        { uploader: username },
+        { $set: { uploader: newUsername } }
+      );
+    await connection
+      .collection("posts")
+      .updateMany(
+        { "comments.username": username },
+        { $set: { "comments.$[element].username": newUsername } },
+        { arrayFilters: [{ "element.username": username }], multi: true }
+      );
+    await connection
+      .collection("posts")
+      .updateMany(
+        { likes: { $in: [username] } },
+        { $set: { "likes.$": newUsername } }
+      );
+}
+
+export { 
+    getAllPosts, getExplore, getOnePost, getUploadedPosts, 
+    createPost, editPost, removePost, removeLike, 
+    likePost, postComment, removeComment, editPicture, updatePostsUsername 
+}

@@ -14,4 +14,8 @@ const deleteThisSession = async (cookieId) => {
     await connection.collection('sessions').deleteOne({_id: ObjectID(cookieId)})
 }
 
-export { getUserBySession, makeSessionForUser, deleteThisSession };
+const updateUsername = async (cookieId, newUsername) => {
+  await connection.collection('sessions').findOneAndUpdate({_id: ObjectID(cookieId)}, {$set: {username: newUsername}})
+}
+
+export { getUserBySession, makeSessionForUser, deleteThisSession, updateUsername };

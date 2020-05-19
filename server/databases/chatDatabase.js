@@ -18,4 +18,20 @@ const getChats = async (username) => {
     .toArray();
 }
 
-export { sendMessage, getChats }
+const updateChatsUsername = async (username, newUsername) => {
+  await connection
+  .collection("chat")
+  .updateMany(
+    { users: { $in: [username] } },
+    { $set: { "users.$": newUsername } }
+  );
+  await connection
+    .collection("chat")
+    .updateMany(
+      { "messages.username": username },
+      { $set: { "messages.$[element].username": newUsername } },
+      { arrayFilters: [{ "element.username": username }], multi: true }
+    );
+}
+
+export { sendMessage, getChats, updateChatsUsername }

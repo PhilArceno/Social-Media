@@ -41,4 +41,82 @@ const setupThisUser = async (allUsers, username) => {
   });
 }
 
-export { getUserByUsername, createThisUser, getAllUsers, setupThisUser };
+const editUser = async (username, newUsername, fullName, profileDescription, imgPath) => {
+  return await connection.collection("users").findOneAndUpdate(
+        { username },
+        {
+          $set: {
+            username: newUsername,
+            fullName,
+            profileDescription,
+            profilePicture: imgPath,
+          }
+        }, {returnOriginal:false})
+};
+
+const updateSocialsUsername = async (username,newUsername) => {
+  await connection
+  .collection("users")
+  .updateMany(
+    { "social.followers": { $in: [username] } },
+    { $set: { "social.followers.$": newUsername } }
+  );
+  await connection
+    .collection("users")
+    .updateMany(
+      { "social.following": { $in: [username] } },
+      { $set: { "social.following.$": newUsername } }
+    );
+}
+
+const editPassword = async (username, newPassword) => {
+  await connection
+    .collection("users")
+    .findOneAndUpdate(
+      { username },
+      { $set: { password: sha1(newPassword) } }
+    );
+}
+
+const unFollowFollowing = async (username, profile) => {
+  return await connection
+  .collection("users")
+  .findOneAndUpdate(
+    { username },
+    { $pull: { "social.following": profile } },
+    { returnOriginal: false }
+  );
+}
+
+const unFollowFollowers = async (username, profile) => {
+  return await connection
+  .collection("users")
+  .findOneAndUpdate(
+    { username: profile },
+    { $pull: { "social.followers": username } },
+    { returnOriginal: false }
+  );
+}
+
+const followFollowing = async (username, profile) => {
+  return await connection
+  .collection("users")
+  .findOneAndUpdate(
+    { username },
+    { $push: { "social.following": profile } },
+    { returnOriginal: false }
+  );
+}
+
+const followFollowers = async (username, profile) => {
+  return await connection
+  .collection("users")
+  .findOneAndUpdate(
+    { username: profile },
+    { $push: { "social.followers": username } },
+    { returnOriginal: false }
+  );
+}
+
+export { getUserByUsername, createThisUser, getAllUsers, setupThisUser, editUser, updateSocialsUsername, editPassword, 
+  unFollowFollowing, unFollowFollowers, followFollowing, followFollowers };

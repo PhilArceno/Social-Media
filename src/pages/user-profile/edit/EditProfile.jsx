@@ -145,12 +145,12 @@ const handleSubmit = async e => {
         dispatch({ type: 'SET-USER', content: parsed.user });
         alert('Updated profile!')
 
-        let response = await fetch('/get/users-comments', {method: 'GET'})
-        let body = await response.text()
-        let parsed2 = JSON.parse(body)
+        let response2 = await fetch('/get/users-chat', {method: 'GET'})
+        let body2 = await response2.text()
+        let parsed2 = JSON.parse(body2)
         if (parsed2.success) {
-            dispatch({ type: 'GET-USERS', content: parsed.allUsers })
-            dispatch({ type: 'GET-CHATS', content: parsed.matchingChats })
+            dispatch({ type: 'GET-USERS', content: parsed2.allUsers })
+            dispatch({ type: 'GET-CHATS', content: parsed2.matchingChats })
         }
 
         props.history.push('/profile/' + profile.username.toLowerCase())

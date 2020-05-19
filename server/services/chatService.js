@@ -8,5 +8,9 @@ const getChats = async (username) => {
     return await chatDatabase.getChats(username)
 }
 
+const updateChatsUsername = async (username,newUsername) => {
+    await chatDatabase.updateChatsUsername(username,newUsername)
+}
 
-export { sendMessage, getChats };
+
+export { sendMessage, getChats, updateChatsUsername };

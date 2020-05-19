@@ -41,8 +41,9 @@ const getEditPost = async (req, res) => {
         
           let post = await postsService.getOnePost(postId)
           if (post.uploader === username) {
-            return res.send(JSON.stringify({ success: true, post }));
-          } else res.send(JSON.stringify({ success: false })); 
+            res.send(JSON.stringify({ success: true, post }));
+          } else res.send(JSON.stringify({ success: false }));
+          return
     }
     throw new TypeError('Missing request body!');
   } catch (err) {

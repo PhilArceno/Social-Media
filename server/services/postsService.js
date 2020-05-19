@@ -44,4 +44,16 @@ const removeComment = async (postId, username, comment) => {
   await postsDatabase.removeComment(postId, username, comment)
 }
 
-export { getAllPosts, getExplore, getOnePost, getUploadedPosts, createPost, editPost, removePost, removeLike, likePost, postComment, removeComment };
+const editPicture = async (username, imgPath) => {
+  await postsDatabase.editPicture(username, imgPath)
+}
+
+const updatePostsUsername = async (username, newUsername) => {
+  await postsDatabase.updatePostsUsername(username, newUsername)
+}
+
+export { 
+  getAllPosts, getExplore, getOnePost, getUploadedPosts, 
+  createPost, editPost, removePost, removeLike, likePost, 
+  postComment, removeComment, editPicture, updatePostsUsername 
+};

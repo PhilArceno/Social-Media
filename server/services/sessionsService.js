@@ -12,4 +12,8 @@ const getSession = async (cookieId) => {
     return await sessionsDatabase.deleteThisSession(cookieId);
   };
 
-  export {getSession, makeSession, deleteSession }
+  const updateUsername = async (cookieId, newUsername) => {
+    await sessionsDatabase.updateUsername(cookieId, newUsername)
+  }
+
+  export {getSession, makeSession, deleteSession, updateUsername }

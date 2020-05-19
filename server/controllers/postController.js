@@ -56,7 +56,7 @@ const editPost = async (req, res) => {
       }
       
       let post = await postsService.editPost(postId, location, description, tags)
-      res.send(JSON.stringify({ success: true, post }));
+      return res.send(JSON.stringify({ success: true, post }));
   }
   throw new TypeError("Missing request body!")
  } catch (err) {
@@ -80,7 +80,7 @@ const deletePost = async (req, res) => {
       }
       
       await postsService.removePost(postId)
-      res.send(JSON.stringify({ success: true }));
+      return res.send(JSON.stringify({ success: true }));
     }
     throw new TypeError("missing request body!")
     } catch (err) {
@@ -132,7 +132,7 @@ const likePost = async (req, res) => {
     } throw new TypeError("missing request body")
   } catch (err) {
       console.log(err);
-      res.send(JSON.stringify({ success: false }));
+      return res.send(JSON.stringify({ success: false }));
     }
 }
 
@@ -154,7 +154,7 @@ const newComment = async (req, res) => {
     await postsService.postComment(postId, username, time, comment)
     let feed = await postsService.getAllPosts()
     feed.reverse();
-    res.send(JSON.stringify({ success: true, feed }));
+    return res.send(JSON.stringify({ success: true, feed }));
   } 
   throw new TypeError("missing request body!")
   } catch (err) {
@@ -175,7 +175,7 @@ const deleteComment = async (req, res) => {
     await postsService.removeComment(postId, username, comment)
     let feed = await postsService.getAllPosts()
     feed.reverse();
-    res.send(JSON.stringify({ success: true, feed }));
+    return res.send(JSON.stringify({ success: true, feed }));
   } 
   throw new TypeError("missing request body")
   } catch (err) {
